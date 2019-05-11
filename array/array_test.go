@@ -13,7 +13,7 @@ func (this *Student) equalse(student Student) bool {
 }
 
 func TestArray_GetSizeAndGetCapacity(t *testing.T) {
-	array := NewArray(10)
+	array := New(10)
 	t.Log(array)
 	if array.IsEmpty() != true {
 		t.Error("should empty")

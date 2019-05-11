@@ -6,36 +6,36 @@ import (
 	"strings"
 )
 
-type array struct {
+type Array struct {
 	data []interface{}
 }
 
 var defaultCapacity int = 10
 
 // 构造函数
-func NewArray(capacity int) *array {
+func New(capacity int) *Array {
 	if capacity < 1 {
 		panic("capacity can't less than 1")
 	}
-	return &array{data: make([]interface{}, 0, capacity)}
+	return &Array{data: make([]interface{}, 0, capacity)}
 }
 
-func NewArrayWithDefaultCapacity() *array {
-	return NewArray(defaultCapacity)
+func NewWithDefaultCapacity() *Array {
+	return New(defaultCapacity)
 }
 
-func (this *array) GetSize() int {
+func (this *Array) GetSize() int {
 	return len(this.data)
 }
 
-func (this *array) GetCapacity() int {
+func (this *Array) GetCapacity() int {
 	return cap(this.data)
 }
 
-func (this *array) IsEmpty() bool {
+func (this *Array) IsEmpty() bool {
 	return this.GetSize() == 0
 }
-func (this *array) Add(index int, e interface{}) bool {
+func (this *Array) Add(index int, e interface{}) bool {
 	if index < 0 || index > this.GetSize() {
 		panic("index error")
 	}
@@ -44,14 +44,14 @@ func (this *array) Add(index int, e interface{}) bool {
 	this.data = append(append(this.data[:index], e), tempSlice...)
 	return true
 }
-func (this *array) AddLast(e interface{}) {
+func (this *Array) AddLast(e interface{}) {
 	this.data = append(this.data, e)
 }
-func (this *array) AddFirst(e interface{}) {
+func (this *Array) AddFirst(e interface{}) {
 	this.Add(0, e)
 }
 
-func (this *array) Remove(index int) interface{} {
+func (this *Array) Remove(index int) interface{} {
 	if index < 0 || index > this.GetSize()-1 {
 		panic("index error")
 	}
@@ -59,25 +59,25 @@ func (this *array) Remove(index int) interface{} {
 	this.data = append(this.data[0:index], this.data[index+1:]...)
 	return rmItem
 }
-func (this *array) RemoveFirst() interface{} {
+func (this *Array) RemoveFirst() interface{} {
 	return this.Remove(0)
 }
-func (this *array) RemoveLast() interface{} {
+func (this *Array) RemoveLast() interface{} {
 	return this.Remove(this.GetSize() - 1)
 }
-func (this *array) Get(index int) interface{} {
+func (this *Array) Get(index int) interface{} {
 	if index < 0 || index > this.GetSize()-1 {
 		panic("index error")
 	}
 	return this.data[index]
 }
 
-func (this *array) RemoveAllElement(e interface{}) {
+func (this *Array) RemoveAllElement(e interface{}) {
 	for _, v := range this.data {
 		this.RemoveElement(v)
 	}
 }
-func (this *array) RemoveElement(e interface{}) (res interface{}) {
+func (this *Array) RemoveElement(e interface{}) (res interface{}) {
 	for i, v := range this.data {
 		if reflect.DeepEqual(v, e) {
 			res = this.Remove(i)
@@ -86,14 +86,14 @@ func (this *array) RemoveElement(e interface{}) (res interface{}) {
 	}
 	return
 }
-func (this *array) Set(index int, e interface{}) {
+func (this *Array) Set(index int, e interface{}) {
 	if index < 0 || index > this.GetSize()-1 {
 		panic("index error")
 	}
 	this.data[index] = e
 }
 
-func (this *array) String() string {
+func (this *Array) String() string {
 	var stringBuilder strings.Builder
 	stringBuilder.WriteString(fmt.Sprintf("Array size:%d ,capacity:%d [", this.GetSize(), this.GetCapacity()))
 	for i, item := range this.data {

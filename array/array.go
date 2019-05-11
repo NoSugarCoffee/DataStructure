@@ -71,6 +71,13 @@ func (this *Array) Get(index int) interface{} {
 	}
 	return this.data[index]
 }
+func (this *Array) GetFirst() interface{} {
+	return this.Get(0)
+}
+
+func (this *Array) GetLast() interface{} {
+	return this.Get(this.GetSize() - 1)
+}
 
 func (this *Array) RemoveAllElement(e interface{}) {
 	for _, v := range this.data {

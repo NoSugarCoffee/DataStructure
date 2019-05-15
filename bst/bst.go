@@ -32,14 +32,7 @@ func NewNode(e interface{}) *Node {
 }
 func (this *Bst) Add(e interface{}) {
 	//表示添加第一个节点
-	if this.size == 0 {
-		node := NewNode(e)
-		this.Root = node
-		this.size++
-	} else {
-		this.add(&this.Root, e)
-	}
-
+	this.add(&this.Root, e)
 }
 
 func (this *Bst) add(root **Node, e interface{}) {
